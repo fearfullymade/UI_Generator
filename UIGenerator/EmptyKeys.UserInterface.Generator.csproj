@@ -95,6 +95,7 @@
     <Compile Include="Types\SliderGeneratorType.cs" />
     <Compile Include="Types\ThumbGeneratorType.cs" />
     <Compile Include="Types\TrackGeneratorType.cs" />
+    <Compile Include="Types\UniformGridGeneratorType.cs" />
     <Compile Include="Types\UserControlGeneratorType.cs" />
     <Compile Include="UserInterfaceGenerator.cs" />
     <Compile Include="Types\BorderGeneratorType.cs" />
