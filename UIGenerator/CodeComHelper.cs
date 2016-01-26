@@ -182,6 +182,18 @@ namespace EmptyKeys.UserInterface.Generator
         }
 
         /// <summary>
+        /// Generates the field with new object.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <param name="type">The type of object.</param>
+        public static void GenerateNewObject(CodeMemberMethod method, CodeExpression target, string fieldName, Type type)
+        {
+            method.Statements.Add(new CodeAssignStatement(new CodeFieldReferenceExpression(target, fieldName), new CodeObjectCreateExpression(new CodeTypeReference(type.FullName))));
+        }
+
+        /// <summary>
         /// Generates the grid length field.
         /// </summary>
         /// <param name="method">The method.</param>
@@ -786,6 +798,16 @@ namespace EmptyKeys.UserInterface.Generator
             {
                 GenerateFieldNonGeneric(method, bindingVar, "StringFormat", binding.StringFormat);
             }
+
+            if (binding.Converter != null)
+            {
+                GenerateNewObject(method, bindingVar, "Converter", binding.Converter.GetType());
+            }
+
+            //if (binding.ConverterParameter != null)
+            //{
+            //    GenerateFieldNonGeneric(method, bindingVar, "ConverterParameter", binding.ConverterParameter);
+            //}
 
             return bindingVar;
         }

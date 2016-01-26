@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using EmptyKeys.UserInterface.Generator.Values;
+using System.Windows.Data;
 
 namespace EmptyKeys.UserInterface.Generator
 {
@@ -163,6 +164,10 @@ namespace EmptyKeys.UserInterface.Generator
                 valueExpression = new CodeFieldReferenceExpression(typeReference, value.ToString());
             }
             else if (valueType.BaseType.Name.Contains("ViewModelLocatorBase"))
+            {
+                valueExpression = new CodeObjectCreateExpression(valueType);
+            }
+            else if (valueType.GetInterfaces().Contains(typeof(IValueConverter)))
             {
                 valueExpression = new CodeObjectCreateExpression(valueType);
             }
