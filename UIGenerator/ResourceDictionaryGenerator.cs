@@ -64,8 +64,15 @@ namespace EmptyKeys.UserInterface.Generator
 
                 if (valueExpression != null)
                 {
+                    
                     CodeMethodInvokeExpression addResourceMethod = new CodeMethodInvokeExpression(fieldReference, "Add", keyExpression, valueExpression);
-                    initMethod.Statements.Add(addResourceMethod);
+
+                    var check = new CodeConditionStatement(
+                        new CodeMethodInvokeExpression(fieldReference, "Contains", keyExpression), 
+                        new CodeStatement[] { },
+                        new CodeStatement[] { new CodeExpressionStatement(addResourceMethod) });
+
+                    initMethod.Statements.Add(check);
                 }
 
                 uniqueId++;
